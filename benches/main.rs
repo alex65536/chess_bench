@@ -28,10 +28,10 @@ const TESTS: [Test; 36] = [
     },
     Test {
         name: "jordanbray_3",
-        fen: "8/8/1k6/8/2pP4/8/5BK1/8 b - d3 0 1",
+        fen: "8/8/1k6/2b5/2pP4/8/5K2/8 b - d3 0 1",
         depth: 6,
         perft: 1440467,
-        hperft: 14960676359275113292,
+        hperft: 1507229866844926637,
     },
     Test {
         name: "jordanbray_4",
@@ -271,6 +271,8 @@ fn impls() -> Vec<Box<dyn chess_bench::Bench>> {
         Box::new(chess_bench::chess::Bench),
         Box::new(chess_bench::owlchess::Bench),
         Box::new(chess_bench::shakmaty::Bench),
+        Box::new(chess_bench::pleco::Bench),
+        Box::new(chess_bench::cozy_chess::Bench),
     ]
 }
 

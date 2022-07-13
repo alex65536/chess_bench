@@ -5,9 +5,11 @@ edition = "2021"
 publish = false
 
 [dependencies]
-owlchess = "0.1.0"
+owlchess = "0.2.0"
 chess = "3.2.0"
 shakmaty = "0.21.2"
+pleco = "0.5.0"
+cozy-chess = "0.2.2"
 
 [dev-dependencies]
 criterion = "0.3"
