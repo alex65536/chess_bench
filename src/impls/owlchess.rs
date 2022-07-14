@@ -30,8 +30,8 @@ impl Bench {
             let white: u64 = b.color(Color::White).flipped_rank().into();
             let black: u64 = b.color(Color::Black).flipped_rank().into();
             return white
-                .wrapping_mul(super::HPERFT_WHITE)
-                .wrapping_add(black.wrapping_mul(super::HPERFT_BLACK));
+                .wrapping_mul(crate::HPERFT_WHITE)
+                .wrapping_add(black.wrapping_mul(crate::HPERFT_BLACK));
         }
 
         let mut result: u64 = 0;
@@ -48,7 +48,7 @@ impl Bench {
     }
 }
 
-impl super::Bench for Bench {
+impl crate::Bench for Bench {
     fn name(&self) -> &'static str {
         "owlchess"
     }

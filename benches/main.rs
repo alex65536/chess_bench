@@ -267,12 +267,14 @@ const TESTS: [Test; 36] = [
 ];
 
 fn impls() -> Vec<Box<dyn chess_bench::Bench>> {
+    use chess_bench::impls;
+
     vec![
-        Box::new(chess_bench::chess::Bench),
-        Box::new(chess_bench::owlchess::Bench),
-        Box::new(chess_bench::shakmaty::Bench),
-        Box::new(chess_bench::pleco::Bench),
-        Box::new(chess_bench::cozy_chess::Bench),
+        Box::new(impls::chess::Bench),
+        Box::new(impls::owlchess::Bench),
+        Box::new(impls::shakmaty::Bench),
+        Box::new(impls::pleco::Bench),
+        Box::new(impls::cozy_chess::Bench),
     ]
 }
 

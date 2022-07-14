@@ -8,8 +8,8 @@ impl Bench {
             let white = pos.board().by_color(Color::White).0;
             let black = pos.board().by_color(Color::Black).0;
             white
-                .wrapping_mul(super::HPERFT_WHITE)
-                .wrapping_add(black.wrapping_mul(super::HPERFT_BLACK))
+                .wrapping_mul(crate::HPERFT_WHITE)
+                .wrapping_add(black.wrapping_mul(crate::HPERFT_BLACK))
         } else {
             let moves = pos.legal_moves();
             let mut result: u64 = 0;
@@ -23,7 +23,7 @@ impl Bench {
     }
 }
 
-impl super::Bench for Bench {
+impl crate::Bench for Bench {
     fn name(&self) -> &'static str {
         "shakmaty"
     }

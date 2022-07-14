@@ -9,8 +9,8 @@ impl Bench {
             let white = board.get_occupied_player(Player::White).0;
             let black = board.get_occupied_player(Player::Black).0;
             return white
-                .wrapping_mul(super::HPERFT_WHITE)
-                .wrapping_add(black.wrapping_mul(super::HPERFT_BLACK));
+                .wrapping_mul(crate::HPERFT_WHITE)
+                .wrapping_add(black.wrapping_mul(crate::HPERFT_BLACK));
         }
 
         let moves: MoveList = board.generate_moves();
@@ -24,7 +24,7 @@ impl Bench {
     }
 }
 
-impl super::Bench for Bench {
+impl crate::Bench for Bench {
     fn name(&self) -> &'static str {
         "pleco"
     }

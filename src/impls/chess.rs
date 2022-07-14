@@ -10,8 +10,8 @@ impl Bench {
             let white = board.color_combined(Color::White).0;
             let black = board.color_combined(Color::Black).0;
             return white
-                .wrapping_mul(super::HPERFT_WHITE)
-                .wrapping_add(black.wrapping_mul(super::HPERFT_BLACK));
+                .wrapping_mul(crate::HPERFT_WHITE)
+                .wrapping_add(black.wrapping_mul(crate::HPERFT_BLACK));
         }
 
         let iterable = MoveGen::new_legal(board);
@@ -28,7 +28,7 @@ impl Bench {
     }
 }
 
-impl super::Bench for Bench {
+impl crate::Bench for Bench {
     fn name(&self) -> &'static str {
         "chess"
     }

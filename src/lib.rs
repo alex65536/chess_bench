@@ -7,8 +7,4 @@ pub trait Bench {
 pub(crate) const HPERFT_WHITE: u64 = 142867;
 pub(crate) const HPERFT_BLACK: u64 = 285709;
 
-pub mod chess;
-pub mod cozy_chess;
-pub mod owlchess;
-pub mod pleco;
-pub mod shakmaty;
+pub mod impls;
