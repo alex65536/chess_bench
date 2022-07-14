@@ -26,3 +26,6 @@ opt-level = 1
 
 [profile.release.build-override]
 opt-level = 1
+
+[profile.release]
+opt-level = 3
