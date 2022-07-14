@@ -20,3 +20,9 @@ harness = false
 
 [lib]
 bench = false
+
+[profile.dev.build-override]
+opt-level = 1
+
+[profile.release.build-override]
+opt-level = 1
