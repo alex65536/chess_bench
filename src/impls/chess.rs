@@ -1,8 +1,84 @@
-use chess::{Board, Color, MoveGen};
+use arrayvec::ArrayVec;
+use chess::{Board, ChessMove, Color, File, MoveGen, Piece, Rank, Square};
 use std::mem;
 use std::str::FromStr;
 
 pub struct Bench;
+pub struct Test;
+
+impl crate::Test for Test {
+    type Board = Board;
+    type Move = ChessMove;
+    type Undo = Board;
+    type MoveList = ArrayVec<ChessMove, 256>;
+
+    fn get_move<'a>(&self, list: &'a Self::MoveList, idx: usize) -> &'a Self::Move {
+        &list[idx]
+    }
+
+    fn move_count(&self, list: &Self::MoveList) -> usize {
+        list.len()
+    }
+
+    fn board_from_fen(&self, fen: &str) -> Self::Board {
+        Board::from_str(fen).expect("invalid fen")
+    }
+
+    fn make_move(&self, board: &mut Self::Board, mv: &Self::Move) -> Self::Undo {
+        let old = *board;
+        old.make_move(*mv, board);
+        old
+    }
+
+    fn unmake_move(&self, board: &mut Self::Board, _mv: &Self::Move, u: &Self::Undo) {
+        *board = *u;
+    }
+
+    fn move_str(&self, mv: &Self::Move) -> String {
+        mv.to_string()
+    }
+
+    fn generate_moves(&self, b: &Self::Board) -> Self::MoveList {
+        MoveGen::new_legal(b).collect()
+    }
+
+    fn is_attacked(&self, b: &Self::Board, is_white: bool, cx: char, cy: char) -> bool {
+        let color = if is_white { Color::White } else { Color::Black };
+        let file = File::from_index(cx as usize - 'a' as usize);
+        let rank = Rank::from_index(cy as usize - '1' as usize);
+        let pos = Square::make_square(rank, file);
+        let our = b.color_combined(color);
+        let all = b.combined();
+
+        let attackers = (chess::get_knight_moves(pos) & b.pieces(Piece::Knight) & our)
+            | (chess::get_king_moves(pos) & b.pieces(Piece::King) & our)
+            | chess::get_pawn_attacks(pos, !color, b.pieces(Piece::Pawn) & our);
+        if attackers != chess::EMPTY {
+            return true;
+        }
+
+        let long_attack = b.color_combined(color)
+            & ((chess::get_bishop_rays(pos) & (b.pieces(Piece::Bishop) | b.pieces(Piece::Queen)))
+                | (chess::get_rook_rays(pos) & (b.pieces(Piece::Rook) | b.pieces(Piece::Queen))));
+        for p in long_attack {
+            if (chess::between(p, pos) & all) == chess::EMPTY {
+                return true;
+            }
+        }
+
+        false
+    }
+
+    fn is_last_move_legal(&self, _b: &Self::Board) -> bool {
+        true
+    }
+
+    fn is_check(&self, b: &Self::Board) -> bool {
+        b.checkers() != &chess::EMPTY
+    }
+
+    fn run_self_test(&self, _b: &Self::Board) {}
+}
 
 impl Bench {
     fn do_hperft(board: &Board, depth: usize) -> u64 {
