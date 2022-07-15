@@ -31,7 +31,7 @@ impl crate::Test for Test {
     }
 
     fn make_move(&self, board: &mut Self::Board, mv: &Self::Move) -> Self::Undo {
-        mv.semi_validate(&board).expect("move is not semi-legal");
+        mv.semi_validate(board).expect("move is not semi-legal");
         let undo = unsafe { moves::make_move_unchecked(board, *mv) };
         Undo {
             cur: *board.raw(),
