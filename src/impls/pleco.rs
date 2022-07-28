@@ -1,9 +1,9 @@
 use pleco::board::{perft, Board};
 use pleco::{MoveList, Player};
 
-pub struct Bench;
+pub struct Perft;
 
-impl Bench {
+impl Perft {
     fn do_hperft(board: &mut Board, depth: usize) -> u64 {
         if depth == 0 {
             let white = board.get_occupied_player(Player::White).0;
@@ -24,7 +24,7 @@ impl Bench {
     }
 }
 
-impl crate::Bench for Bench {
+impl crate::Perft for Perft {
     fn name(&self) -> &'static str {
         "pleco"
     }

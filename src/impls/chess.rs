@@ -3,7 +3,7 @@ use chess::{Board, ChessMove, Color, File, MoveGen, Piece, Rank, Square};
 use std::mem;
 use std::str::FromStr;
 
-pub struct Bench;
+pub struct Perft;
 pub struct Test;
 
 impl crate::Test for Test {
@@ -80,7 +80,7 @@ impl crate::Test for Test {
     fn run_self_test(&self, _b: &Self::Board) {}
 }
 
-impl Bench {
+impl Perft {
     fn do_hperft(board: &Board, depth: usize) -> u64 {
         if depth == 0 {
             let white = board.color_combined(Color::White).0;
@@ -104,7 +104,7 @@ impl Bench {
     }
 }
 
-impl crate::Bench for Bench {
+impl crate::Perft for Perft {
     fn name(&self) -> &'static str {
         "chess"
     }

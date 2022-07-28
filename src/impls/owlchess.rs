@@ -5,7 +5,7 @@ use owlchess::{
 };
 
 pub struct Test;
-pub struct Bench;
+pub struct Perft;
 
 pub struct Undo {
     cur: RawBoard,
@@ -70,7 +70,7 @@ impl crate::Test for Test {
     fn run_self_test(&self, _b: &Self::Board) {}
 }
 
-impl Bench {
+impl Perft {
     fn do_perft(b: &mut Board, depth: usize) -> u64 {
         match depth {
             0 => 1,
@@ -113,7 +113,7 @@ impl Bench {
     }
 }
 
-impl crate::Bench for Bench {
+impl crate::Perft for Perft {
     fn name(&self) -> &'static str {
         "owlchess"
     }

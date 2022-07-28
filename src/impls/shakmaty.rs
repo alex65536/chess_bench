@@ -1,8 +1,8 @@
 use shakmaty::{fen::Fen, CastlingMode, Chess, Color, Position};
 
-pub struct Bench;
+pub struct Perft;
 
-impl Bench {
+impl Perft {
     fn do_hperft(pos: &Chess, depth: usize) -> u64 {
         if depth < 1 {
             let white = pos.board().by_color(Color::White).0;
@@ -23,7 +23,7 @@ impl Bench {
     }
 }
 
-impl crate::Bench for Bench {
+impl crate::Perft for Perft {
     fn name(&self) -> &'static str {
         "shakmaty"
     }

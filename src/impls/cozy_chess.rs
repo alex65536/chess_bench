@@ -1,8 +1,8 @@
 use cozy_chess::{Board, Color};
 
-pub struct Bench;
+pub struct Perft;
 
-impl Bench {
+impl Perft {
     fn do_perft(board: &Board, depth: usize) -> u64 {
         if depth == 1 {
             let mut count = 0;
@@ -47,7 +47,7 @@ impl Bench {
     }
 }
 
-impl crate::Bench for Bench {
+impl crate::Perft for Perft {
     fn name(&self) -> &'static str {
         "cozy_chess"
     }
