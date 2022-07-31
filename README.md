@@ -17,11 +17,11 @@ The following implementations are tested now, with different support level:
 
 | Implementation | perft | hperft | selftest |
 |---------------:|:-----:|:------:|:--------:|
-| [chess]        | ✅    | ✅     | ✅       |
-| [owlchess]     | ✅    | ✅     | ✅       |
-| [shakmaty]     | ✅    | ✅     | ❌       |
-| [cozy-chess]   | ✅    | ✅     | ❌       |
-| [pleco]        | ✅    | ✅     | ❌       |
+| [chess]        | ✔️ | ✔️ | ✔️ |
+| [owlchess]     | ✔️ | ✔️ | ✔️ |
+| [shakmaty]     | ✔️ | ✔️ | ❌ |
+| [cozy-chess]   | ✔️ | ✔️ | ❌ |
+| [pleco]        | ✔️ | ✔️ | ❌ |
 
 [chess]: https://github.com/jordanbray/chess
 [owlchess]: https://github.com/alex65536/owlchess
