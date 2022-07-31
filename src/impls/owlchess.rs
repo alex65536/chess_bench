@@ -2,6 +2,7 @@ use owlchess::{
     movegen::{self, legal, semilegal},
     moves::{self, RawUndo},
     Board, Color, Coord, File, Move, MoveList, Rank, RawBoard,
+    selftest,
 };
 
 pub struct Test;
@@ -67,7 +68,9 @@ impl crate::Test for Test {
         !b.is_opponent_king_attacked()
     }
 
-    fn run_self_test(&self, _b: &Self::Board) {}
+    fn run_self_test(&self, b: &Self::Board) {
+        selftest::selftest(b)
+    }
 }
 
 impl Perft {
