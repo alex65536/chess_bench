@@ -47,7 +47,7 @@ def build_plots(data, show):
         labels = sorted(impls[0][1])
         y = np.arange(len(labels))
         fig, ax = plt.subplots(figsize=(8, len(labels)))
-        height = 0.8
+        height = 1.0 - 1.0 / len(impls)
         for idx, (iname, cases) in enumerate(impls):
             assert labels == sorted(cases)
             cases = sorted([(k, v) for k, v in cases.items()])
