@@ -75,9 +75,9 @@ This repository is licensed under GPLv3 (or any later version). Each of the ches
 
 ## About Hperft
 
-Hperft (**h**onest **perf**ormance **t**est, or **h**ash-based **perf**ormance **t**est) is another way to test correctness and performance of chess implementations. Unlike regular Perft, it doesn't calculate number of positions, but it calculates sum of hashes over all the positions. The hashes involve bitboards, but the fastest implementations already use bitboards for move generation, don't they?
+Hperft (**h**onest **perf**ormance **t**est, or **h**ash-based **perf**ormance **t**est) is another way to test correctness and performance of chess implementations. Unlike regular Perft, it doesn't calculate number of positions, but it calculates sum of hashes over all the positions instead. The hashes involve bitboards, but the fastest implementations already use bitboards for move generation, don't they?
 
-The difference is that Perft is not honest to use when comparing legal move generators with pseudo-legal ones. If you have a fully legal move generator, then you can just generate all the moves on the last depth, but don't try to apply them. On the other hand, this doesn't work well with pseudo-legal generators, which will apply all the moves even on the last depth. Hperft solves the issue by forcing implementations with legal move generators to make all the moves even on the last depth.
+The difference is that Perft is not fair to use when comparing legal move generators with pseudo-legal ones. If you have a fully legal move generator, then you can just generate all the moves on the last depth, but don't try to apply them. On the other hand, this doesn't work well with pseudo-legal generators, which will apply all the moves even on the last depth to perform legality check. Hperft solves the issue by forcing implementations with legal move generators to make all the moves even on the last depth.
 
 The downside is that Hperft more measures the speed of applying moves rather than the speed of generating moves. So, a better benchmark, which simulates workload of a typical chess 
 engine more precisely, is still needed.
