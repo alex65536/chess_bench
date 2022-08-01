@@ -1,5 +1,7 @@
 # Tests and benchmarks for chess implementations in Rust
 
+[![Build](https://github.com/alex65536/chess_bench/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/alex65536/chess_bench/actions/workflows/build.yml)
+
 This repository contains tests and benchmarks to compare various chess implementations against each other. More precisely, the following things are implemented:
 
 Tests:
