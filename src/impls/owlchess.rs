@@ -1,8 +1,7 @@
 use owlchess::{
     movegen::{self, legal, semilegal},
-    moves::{self, RawUndo},
-    Board, Color, Coord, File, Move, MoveList, Rank, RawBoard,
-    selftest,
+    moves::{self, make::TryUnchecked, RawUndo},
+    selftest, Board, Color, Coord, File, Make, Move, MoveList, Rank, RawBoard,
 };
 
 pub struct Test;
@@ -81,8 +80,8 @@ impl Perft {
             _ => semilegal::gen_all(b)
                 .iter()
                 .map(|mv| {
-                    let u = match unsafe { moves::try_make_move_unchecked(b, *mv) } {
-                        Ok(u) => u,
+                    let u = match unsafe { TryUnchecked::new(*mv) }.make_raw(b) {
+                        Ok((_, u)) => u,
                         Err(_) => return 0,
                     };
                     let res = Self::do_perft(b, depth - 1);
@@ -105,8 +104,8 @@ impl Perft {
         let mut result: u64 = 0;
         let moves = semilegal::gen_all(b);
         for mv in &moves {
-            let u = match unsafe { moves::try_make_move_unchecked(b, *mv) } {
-                Ok(u) => u,
+            let u = match unsafe { TryUnchecked::new(*mv) }.make_raw(b) {
+                Ok((_, u)) => u,
                 Err(_) => continue,
             };
             result = result.wrapping_add(Self::do_hperft(b, depth - 1));
