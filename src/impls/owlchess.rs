@@ -3,6 +3,7 @@ use owlchess::{
     moves::{self, make::TryUnchecked, RawUndo},
     selftest, Board, Color, Coord, File, Make, Move, MoveList, Rank, RawBoard,
 };
+use crate::MoveNotLegal;
 
 pub struct Test;
 pub struct Perft;
@@ -30,13 +31,17 @@ impl crate::Test for Test {
         Board::from_fen(fen).expect("invalid fen")
     }
 
-    fn make_move(&self, board: &mut Self::Board, mv: &Self::Move) -> Self::Undo {
+    fn try_make_move(&self, board: &mut Self::Board, mv: &Self::Move) -> Result<Self::Undo, MoveNotLegal> {
         mv.semi_validate(board).expect("move is not semi-legal");
         let undo = unsafe { moves::make_move_unchecked(board, *mv) };
-        Undo {
+        if board.is_opponent_king_attacked() {
+            unsafe { moves::unmake_move_unchecked(board, *mv, undo) };
+            return Err(MoveNotLegal);
+        }
+        Ok(Undo {
             cur: *board.raw(),
             undo,
-        }
+        })
     }
 
     fn unmake_move(&self, board: &mut Self::Board, mv: &Self::Move, u: &Self::Undo) {
@@ -61,10 +66,6 @@ impl crate::Test for Test {
 
     fn is_check(&self, b: &Self::Board) -> bool {
         b.is_check()
-    }
-
-    fn is_last_move_legal(&self, b: &Self::Board) -> bool {
-        !b.is_opponent_king_attacked()
     }
 
     fn run_self_test(&self, b: &Self::Board) {

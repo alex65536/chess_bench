@@ -78,11 +78,10 @@ impl<'a, T: crate::Test, W: Write> Tester<'a, T, W> {
         let mut result = Vec::with_capacity(count);
         for i in 0..count {
             let mv = t.get_move(moves, i);
-            let u = t.make_move(board, mv);
-            if t.is_last_move_legal(board) {
+            if let Ok(u) = t.try_make_move(board, mv) {
                 result.push(t.move_str(mv));
+                t.unmake_move(board, mv, &u);
             }
-            t.unmake_move(board, mv, &u);
         }
         result.sort();
         result
@@ -158,17 +157,16 @@ impl<'a, T: crate::Test, W: Write> Tester<'a, T, W> {
             let t = &self.test;
             let mv = t.get_move(&moves, idx);
             let old_len = ctx.chain.len();
-            let u = t.make_move(board, mv);
-            if t.is_last_move_legal(board) {
+            if let Ok(u) = t.try_make_move(board, mv) {
                 if self.options.dump_trace_chains {
                     ctx.chain += &(t.move_str(mv) + " ");
                 }
                 ctx.grow_hash(val);
                 self.depth_dump(depth - 1, board, spec, ctx);
+                let t = &self.test;
+                t.unmake_move(board, mv, &u);
             }
-            let t = &self.test;
             ctx.chain.truncate(old_len);
-            t.unmake_move(board, mv, &u);
         }
         ctx.grow_hash(15967534195);
     }
@@ -232,11 +230,10 @@ impl<'a, T: crate::Test, W: Write> Tester<'a, T, W> {
         if self.options.run_self_test {
             for i in 0..t.move_count(&moves) {
                 let mv = t.get_move(&moves, i);
-                let u = t.make_move(&mut board, mv);
-                if t.is_last_move_legal(&board) {
+                if let Ok(u) = t.try_make_move(&mut board, mv) {
                     t.run_self_test(&board);
+                    t.unmake_move(&mut board, mv, &u);
                 }
-                t.unmake_move(&mut board, mv, &u);
             }
         }
 
