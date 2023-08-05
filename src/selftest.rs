@@ -112,7 +112,6 @@ impl<'a, T: crate::Test, W: Write> Tester<'a, T, W> {
         &mut self,
         depth: usize,
         board: &mut T::Board,
-        spec: &DepthSpec,
         ctx: &mut DepthCtx,
     ) {
         let t = &self.test;
@@ -162,7 +161,7 @@ impl<'a, T: crate::Test, W: Write> Tester<'a, T, W> {
                     ctx.chain += &(t.move_str(mv) + " ");
                 }
                 ctx.grow_hash(val);
-                self.depth_dump(depth - 1, board, spec, ctx);
+                self.depth_dump(depth - 1, board, ctx);
                 let t = &self.test;
                 t.unmake_move(board, mv, &u);
             }
@@ -262,7 +261,7 @@ impl<'a, T: crate::Test, W: Write> Tester<'a, T, W> {
 
         for spec in &specs {
             let mut ctx = DepthCtx::new(spec);
-            self.depth_dump(spec.depth, &mut board, spec, &mut ctx);
+            self.depth_dump(spec.depth, &mut board, &mut ctx);
             writeln!(self.writer, "depth-dump-at-{}: {}", spec.name(), ctx.hash).unwrap();
         }
 
