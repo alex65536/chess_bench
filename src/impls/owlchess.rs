@@ -1,9 +1,9 @@
+use crate::MoveNotLegal;
 use owlchess::{
     movegen::{self, legal, semilegal},
     moves::{self, make::TryUnchecked, RawUndo},
     selftest, Board, Color, Coord, File, Make, Move, MoveList, Rank, RawBoard,
 };
-use crate::MoveNotLegal;
 
 pub struct Test;
 pub struct Perft;
@@ -31,7 +31,11 @@ impl crate::Test for Test {
         Board::from_fen(fen).expect("invalid fen")
     }
 
-    fn try_make_move(&self, board: &mut Self::Board, mv: &Self::Move) -> Result<Self::Undo, MoveNotLegal> {
+    fn try_make_move(
+        &self,
+        board: &mut Self::Board,
+        mv: &Self::Move,
+    ) -> Result<Self::Undo, MoveNotLegal> {
         mv.semi_validate(board).expect("move is not semi-legal");
         let undo = unsafe { moves::make_move_unchecked(board, *mv) };
         if board.is_opponent_king_attacked() {

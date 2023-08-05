@@ -15,7 +15,11 @@ pub trait Test {
     fn get_move<'a>(&self, list: &'a Self::MoveList, idx: usize) -> &'a Self::Move;
     fn move_count(&self, list: &Self::MoveList) -> usize;
     fn board_from_fen(&self, fen: &str) -> Self::Board;
-    fn try_make_move(&self, board: &mut Self::Board, mv: &Self::Move) -> Result<Self::Undo, MoveNotLegal>;
+    fn try_make_move(
+        &self,
+        board: &mut Self::Board,
+        mv: &Self::Move,
+    ) -> Result<Self::Undo, MoveNotLegal>;
     fn unmake_move(&self, board: &mut Self::Board, mv: &Self::Move, u: &Self::Undo);
     fn move_str(&self, mv: &Self::Move) -> String;
     fn generate_moves(&self, b: &Self::Board) -> Self::MoveList;

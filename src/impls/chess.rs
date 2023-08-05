@@ -1,8 +1,8 @@
+use crate::MoveNotLegal;
 use arrayvec::ArrayVec;
 use chess::{Board, ChessMove, Color, File, MoveGen, Piece, Rank, Square};
 use std::mem;
 use std::str::FromStr;
-use crate::MoveNotLegal;
 
 pub struct Perft;
 pub struct Test;
@@ -25,7 +25,11 @@ impl crate::Test for Test {
         Board::from_str(fen).expect("invalid fen")
     }
 
-    fn try_make_move(&self, board: &mut Self::Board, mv: &Self::Move) -> Result<Self::Undo, MoveNotLegal> {
+    fn try_make_move(
+        &self,
+        board: &mut Self::Board,
+        mv: &Self::Move,
+    ) -> Result<Self::Undo, MoveNotLegal> {
         let old = *board;
         old.make_move(*mv, board);
         Ok(old)

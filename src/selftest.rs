@@ -108,12 +108,7 @@ impl<'a, T: crate::Test, W: Write> Tester<'a, T, W> {
         res
     }
 
-    fn depth_dump(
-        &mut self,
-        depth: usize,
-        board: &mut T::Board,
-        ctx: &mut DepthCtx,
-    ) {
+    fn depth_dump(&mut self, depth: usize, board: &mut T::Board, ctx: &mut DepthCtx) {
         let t = &self.test;
 
         if depth == 0 {
