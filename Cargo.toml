@@ -13,20 +13,20 @@ keywords = ["games", "chess", "test", "benchmark"]
 categories = ["games"]
 
 [dependencies]
-arrayvec = "0.7.2"
-clap = { version = "3.2.12", features = ["derive"] }
-sha2 = "0.10.2"
+arrayvec = "0.7.4"
+clap = { version = "4.3.19", features = ["derive"] }
+sha2 = "0.10.7"
 hex-literal = "0.3.4"
 
 # Chess implementations
 owlchess = { version = "0.3.0", features = ["selftest"] }
 chess = "3.2.0"
-shakmaty = "0.21.2"
+shakmaty = "0.26.0"
 pleco = "0.5.0"
-cozy-chess = "0.2.2"
+cozy-chess = "0.3.3"
 
 [dev-dependencies]
-criterion = "0.3"
+criterion = "0.5.1"
 
 [[bench]]
 name = "main"
