@@ -4,7 +4,7 @@ use sha2::{Digest, Sha256};
 
 const INPUT_DATA: &str = include_str!("boards.fen");
 const OUTPUT_HASH: [u8; 32] =
-    hex!("1ac232af9c1ede66b0cf423c87838324b09d178a5721b2c4ded7d87540a96318");
+    hex!("e0d9b6799e2bd0ae9e69f9e2757acbb3e5072fa6c667ee3e5745d90cfd2ed18d");
 
 fn run_test<T: Test>(test: T) {
     let mut hasher = Sha256::default();

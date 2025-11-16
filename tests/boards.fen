@@ -29,6 +29,9 @@ r3k2r/5r2/8/8/8/8/8/R3K2R w KQkq - 0 1
 r3k2r/8/8/8/8/8/5R2/R3K2R b KQkq - 0 1
 r3k2r/3r4/8/8/8/8/8/R3K2R w KQkq - 0 1
 r3k2r/8/8/8/8/8/3R4/R3K2R b KQkq - 0 1
+# Thanks to Lars Schumann for these ones. See https://github.com/alex65536/owlchess/issues/6 for details.
+1nbqkbnr/2pppppp/1p6/pr3P1K/8/8/PPPPP1PP/RNBQ1BNR b k - 1 6
+1nbqkbnr/2pp1ppp/1p6/pr2pP1K/8/8/PPPPP1PP/RNBQ1BNR w k e6 0 7
 
 # These positions are added from games.pgn
 rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1
